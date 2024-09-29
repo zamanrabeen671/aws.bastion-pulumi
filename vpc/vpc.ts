@@ -22,6 +22,17 @@ const igw = new aws.ec2.InternetGateway("cat-igw", {
     vpcId: vpc.id,
     tags: custom_tags
 })
+
+const eip = new aws.ec2.Eip("cat-nat-eip", {
+    vpc: true
+})
+
+const natGateWay = new aws.ec2.NatGateway("cat-natgatway", {
+    subnetId: subnet.id,
+    allocationId: eip.id,
+    tags: custom_tags
+})
 export const vpcId = vpc.id;
 export const subnetId = subnet.id
 export const igwId = igw.id
+export const natGateWayId = natGateWay.id
