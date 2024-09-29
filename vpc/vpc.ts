@@ -17,5 +17,11 @@ const subnet = new aws.ec2.Subnet("cat-public-subnet", {
     tags: custom_tags
 
 })
+
+const igw = new aws.ec2.InternetGateway("cat-igw", {
+    vpcId: vpc.id,
+    tags: custom_tags
+})
 export const vpcId = vpc.id;
 export const subnetId = subnet.id
+export const igwId = igw.id
