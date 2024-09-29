@@ -1,6 +1,6 @@
 import * as aws from "@pulumi/aws";
 
-const custom_tags = {
+export const custom_tags = {
     "managed_by": "cat_cloud",
     env: "dev"
 }
