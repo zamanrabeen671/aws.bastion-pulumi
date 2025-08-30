@@ -1,84 +1,65 @@
-AWS Bastion with Pulumi
+# AWS Bastion with Pulumi
 
-This project provisions AWS infrastructure using Pulumi
- with TypeScript.
-It creates a VPC, subnet, internet gateway, and route table, and exposes their IDs for further use (e.g., setting up a Bastion host or other resources).
+This project uses [Pulumi](https://www.pulumi.com/) with **TypeScript** to define AWS networking resources.  
+It sets up a **VPC, Subnet, Internet Gateway, and Route Table**, and makes their IDs available for further use (e.g., deploying a Bastion host or other services).
 
-📂 Project Structure
+---
+
+## 📂 Project Structure
+
 .
-├── index.ts                 # Main Pulumi entry file
+├── index.ts # Main Pulumi entry file
 ├── vpc/
-│   └── vpc.ts               # Defines VPC, Subnet, Internet Gateway
+│ └── vpc.ts # Defines VPC, Subnet, and Internet Gateway
 ├── route-table/
-│   └── route-table.ts       # Defines Route Table and associations
-└── package.json
+│ └── route-table.ts # Defines Route Table and associations
+└── package.json # Node.js dependencies and scripts
 
 
-vpc/vpc.ts → Creates VPC, Subnet, and Internet Gateway, and exports their IDs.
+- **`index.ts`** → Entry point, imports resources and prints their IDs.  
+- **`vpc/vpc.ts`** → Creates the VPC, Subnet, and Internet Gateway.  
+- **`route-table/route-table.ts`** → Creates the Route Table and exports its ID.  
 
-route-table/route-table.ts → Creates a Route Table and exports its ID.
+---
 
-index.ts → Imports all resources and logs their IDs for reference.
 
-🚀 Getting Started
-1. Install Dependencies
+## 📝 Summary
+
+- Provides a **modular Pulumi setup** for AWS networking.  
+- Keeps resources in separate files for better organization and reusability.  
+- The `index.ts` ties everything together and logs the created resource IDs.  
+- Serves as a foundation for extending infrastructure with:
+  - Bastion host EC2 instance  
+  - Security groups  
+  - NAT gateway  
+  - Private subnets  
+
+'## 🏗️ Architecture Diagram
+
+            +---------------------+
+            |        VPC          |
+            |   (Custom Network)  |
+            +----------+----------+
+                       |
+            +----------v----------+
+            |       Subnet        |
+            |   (Public Subnet)   |
+            +----------+----------+
+                       |
+            +----------v----------+
+            |   Route Table       |
+            |  (Routes traffic)   |
+            +----------+----------+
+                       |
+            +----------v----------+
+            | Internet Gateway    |
+            |  (Access to Internet)|
+            +---------------------+
+
+---
+
+## 🚀 How to Run
+
+### 1. Install dependencies
+```bash
 npm install
-
-2. Configure Pulumi
-
-Login to Pulumi (locally or via Pulumi Cloud):
-
-pulumi login
-
-
-Set your AWS region:
-
-pulumi config set aws:region us-east-1
-
-3. Deploy Infrastructure
-
-Run:
-
-pulumi up
-
-
-Pulumi will show a preview of resources to create. Confirm with yes.
-
-4. Check Outputs
-
-The index.ts logs resource IDs:
-
-vpc id vpc-xxxxxxxx
-subnet id subnet-xxxxxxxx
-igw id igw-xxxxxxxx
-route-table id rtb-xxxxxxxx
-
-🛠️ Useful Commands
-
-Update stack:
-
-pulumi up
-
-
-Destroy stack:
-
-pulumi destroy
-
-
-View stack state:
-
-pulumi stack
-
-📌 Notes
-
-Ensure your AWS CLI is configured with valid credentials.
-
-This setup provides the networking foundation. You can extend it by adding:
-
-Bastion host EC2 instance
-
-Security groups
-
-NAT Gateway
-
-Private subnets
