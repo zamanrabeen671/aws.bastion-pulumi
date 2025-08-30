@@ -5,15 +5,49 @@ It sets up a **VPC, Subnet, Internet Gateway, and Route Table**, and makes their
 
 ---
 
-## 📂 Project Structure
+🏗️ Project System Design
 
-.
-├── index.ts # Main Pulumi entry file
-├── vpc/
-│ └── vpc.ts # Defines VPC, Subnet, and Internet Gateway
-├── route-table/
-│ └── route-table.ts # Defines Route Table and associations
-└── package.json # Node.js dependencies and scripts
+This Pulumi project sets up the networking foundation for deploying AWS resources, such as a Bastion EC2 instance. Here's how the components are connected and why:
+
+VPC (Virtual Private Cloud)
+
+Acts as an isolated network in AWS.
+
+All AWS resources (EC2, RDS, etc.) are deployed inside a VPC.
+
+Ensures network security and control over IP ranges.
+
+Subnet
+
+Logical division of the VPC.
+
+Public subnet: resources can have public IPs and access the internet.
+
+Private subnet: resources are internal only.
+
+Our Bastion host would sit in the public subnet to allow SSH access from the internet.
+
+Internet Gateway (IGW)
+
+Connects the VPC to the internet.
+
+Required for any public subnet EC2 instance (like Bastion) to allow inbound/outbound internet traffic.
+
+Route Table
+
+Directs traffic within the VPC and to the internet.
+
+Routes from the public subnet point to the IGW so EC2 instances can reach the internet.
+
+Ensures proper network traffic flow between resources.
+
+EC2 (Bastion) [Future]
+
+Deploys in the public subnet.
+
+Connects to private subnet resources (e.g., private EC2s or databases) via SSH.
+
+Acts as a secure entry point to the internal network.
 
 
 - **`index.ts`** → Entry point, imports resources and prints their IDs.  
