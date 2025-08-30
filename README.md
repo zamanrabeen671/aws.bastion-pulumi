@@ -69,26 +69,30 @@ Acts as a secure entry point to the internal network.
   - Private subnets  
 
 '## 🏗️ Architecture Diagram
+        Internet
+           |
+           v
+    +------------------+
+    |  Internet Gateway |
+    +---------+--------+
+              |
+    +---------v--------+
+    |       VPC        |
+    | (10.0.0.0/16)    |
+    +---------+--------+
+              |
+     +--------v---------+
+     |    Public Subnet  |
+     | (10.0.1.0/24)    |
+     +--------+---------+
+              |
+       +------v------+
+       | Route Table |
+       +------^------+
+              |
+        Bastion EC2
+         (SSH Access)
 
-            +---------------------+
-            |        VPC          |
-            |   (Custom Network)  |
-            +----------+----------+
-                       |
-            +----------v----------+
-            |       Subnet        |
-            |   (Public Subnet)   |
-            +----------+----------+
-                       |
-            +----------v----------+
-            |   Route Table       |
-            |  (Routes traffic)   |
-            +----------+----------+
-                       |
-            +----------v----------+
-            | Internet Gateway    |
-            |  (Access to Internet)|
-            +---------------------+
 
 ---
 
