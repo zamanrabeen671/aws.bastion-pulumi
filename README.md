@@ -102,3 +102,13 @@ Acts as a secure entry point to the internal network.
 ### 1. Install dependencies
 ```bash
 npm install
+
+#Login to Pulumi (locally or via Pulumi Cloud):
+
+pulumi login
+
+pulumi config set aws:region us-east-1
+
+#run and deploy
+pulumi up
+
