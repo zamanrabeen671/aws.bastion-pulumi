@@ -69,6 +69,7 @@ Acts as a secure entry point to the internal network.
   - Private subnets  
 
 '## 🏗️ Architecture Diagram
+
         Internet
            |
            v
